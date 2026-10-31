@@ -9,7 +9,7 @@ export function usePromotionNotice(isHost: boolean, loaded: boolean) {
   useEffect(() => {
     if (!loaded) return;
     if (wasHost.current === false && isHost) {
-      showDialog('Você agora é host desta festa 🎧', 'Conecte seu celular no som e gerencie a fila com o seu player favorito.');
+      showDialog('Você agora é DJ desta festa 🎧', 'Conecte seu celular no som e gerencie a fila com o seu player favorito.');
     }
     wasHost.current = isHost;
   }, [isHost, loaded]);

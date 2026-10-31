@@ -31,7 +31,7 @@ export default function JoinScreen() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       <Card>
-        <Text style={styles.muted}>Digite o código que o host passou.</Text>
+        <Text style={styles.muted}>Digite o código que o DJ passou.</Text>
         <Input
           placeholder="Código (ex.: K7QX2M)"
           value={code}

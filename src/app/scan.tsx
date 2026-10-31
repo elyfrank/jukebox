@@ -62,7 +62,7 @@ export default function ScanScreen() {
           {joining ? (
             <ActivityIndicator color={colors.primary} />
           ) : (
-            <Text style={styles.text}>Aponte a câmera para o QR code que o host está mostrando.</Text>
+            <Text style={styles.text}>Aponte a câmera para o QR code que o DJ está mostrando.</Text>
           )}
           {!!error && <Text style={styles.error}>{error}</Text>}
         </Card>

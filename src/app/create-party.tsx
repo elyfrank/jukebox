@@ -31,7 +31,7 @@ export default function CreatePartyScreen() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       <Card>
-        <Text style={styles.muted}>Você será o host: recebe os pedidos e coloca as músicas para tocar.</Text>
+        <Text style={styles.muted}>Você será o DJ: recebe os pedidos e coloca as músicas para tocar.</Text>
         <Input
           placeholder="Nome da festa (ex.: Niver da Ana)"
           value={name}

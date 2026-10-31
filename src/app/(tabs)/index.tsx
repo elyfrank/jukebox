@@ -47,7 +47,7 @@ export default function PartiesScreen() {
       <Card>
         <Text style={styles.subtitle}>Bora fazer a festa?</Text>
         <Text style={styles.muted}>
-          Crie uma festa e passe o código para os amigos, ou entre numa festa com o código ou QR code do host.
+          Crie uma festa e passe o código para os amigos, ou entre numa festa com o código ou QR code do DJ.
         </Text>
         <Button title="Criar festa" onPress={() => router.push('/create-party')} />
         <Button title="Entrar numa festa" variant="secondary" onPress={() => router.push('/join')} />

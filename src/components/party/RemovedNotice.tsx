@@ -11,7 +11,7 @@ export function RemovedNotice() {
     <View style={[styles.screen, styles.content]}>
       <Card>
         <Text style={styles.subtitle}>Você não está mais nesta festa</Text>
-        <Text style={styles.muted}>Um host removeu você. Se tiver o código, pode entrar de novo.</Text>
+        <Text style={styles.muted}>Um DJ removeu você. Se tiver o código, pode entrar de novo.</Text>
         <Button title="Voltar" onPress={() => router.back()} />
       </Card>
     </View>

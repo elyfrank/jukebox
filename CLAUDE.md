@@ -8,6 +8,10 @@ host; os convidados entram pelo código ou QR code, buscam músicas (API públic
 já tocou) e abre a música no player dele (Spotify, YouTube Music, Deezer). Telas da festa em
 `src/app/party/[id]/`; a fila atualiza em tempo real (Supabase Realtime).
 
+- Uma festa pode ter vários hosts (todos iguais; quem criou não tem privilégio extra) e nunca fica sem
+  host (trigger no banco). **Na interface o host se chama "DJ"**; no código e no banco continua `host`
+  (`party_members.role = 'host' | 'guest'`).
+
 - Backend: Supabase (auth por e-mail/senha). Banco em `supabase/migrations/NNN_nome.sql`: cada
   mudança é uma migração nova (nunca editar uma já aplicada). Com o projeto ligado pelo Supabase CLI,
   `npx supabase migration list --linked` mostra o que falta e `npx supabase db push --linked --dry-run`

@@ -19,12 +19,12 @@ export function useMemberActions({ partyId, userId, isHost, reload }: Params) {
 
   function buttonsFor(m: Member, name: string): DialogButton[] {
     if (m.user_id === userId) {
-      return m.role === 'host' ? [{ text: 'Deixar de ser host', onPress: () => setRole(m, 'guest') }] : [];
+      return m.role === 'host' ? [{ text: 'Deixar de ser DJ', onPress: () => setRole(m, 'guest') }] : [];
     }
     const roleButton: DialogButton =
       m.role === 'host'
-        ? { text: 'Tornar convidado', onPress: () => setRole(m, 'guest') }
-        : { text: 'Promover a host', onPress: () => setRole(m, 'host') };
+        ? { text: 'Tirar de DJ', onPress: () => setRole(m, 'guest') }
+        : { text: 'Tornar DJ', onPress: () => setRole(m, 'host') };
     return [roleButton, { text: 'Remover da festa', style: 'destructive', onPress: () => confirmRemove(m, name) }];
   }
 
@@ -35,7 +35,7 @@ export function useMemberActions({ partyId, userId, isHost, reload }: Params) {
 
   function pressMember(m: Member) {
     const name = m.profile?.name ?? 'Esta pessoa';
-    showDialog(name, m.role === 'host' ? 'Host da festa' : 'Convidado', [
+    showDialog(name, m.role === 'host' ? 'DJ da festa' : 'Convidado', [
       ...buttonsFor(m, name),
       { text: 'Cancelar', style: 'cancel' },
     ]);

@@ -29,15 +29,15 @@ export default function MembersScreen() {
         style={styles.screen}
         contentContainerStyle={[styles.content, { gap: 8 }]}
         sections={[
-          { title: `HOSTS (${hosts.length})`, data: hosts },
+          { title: `DJS (${hosts.length})`, data: hosts },
           { title: `CONVIDADOS (${guests.length})`, data: guests },
         ]}
         keyExtractor={(m) => m.user_id}
         ListHeaderComponent={
           <Text style={styles.muted}>
             {isHost
-              ? 'Toque numa pessoa para promover a host, tornar convidado ou remover da festa.'
-              : 'Os hosts controlam a fila e o que toca.'}
+              ? 'Toque numa pessoa para tornar DJ, tirar de DJ ou remover da festa.'
+              : 'Os DJs controlam a fila e o que toca.'}
             {error ? `\n${error}` : ''}
           </Text>
         }
