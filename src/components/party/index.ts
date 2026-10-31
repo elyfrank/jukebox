@@ -5,5 +5,7 @@ export { PartyCard } from './PartyCard';
 export { PartyEndedBanner } from './PartyEndedBanner';
 export { PartyHeaderActions } from './PartyHeaderActions';
 export { QueueList } from './QueueList';
+export { ReactionBar } from './ReactionBar';
+export { ReactionOverlay } from './ReactionOverlay';
 export { RemovedNotice } from './RemovedNotice';
 export { RequestSongButton } from './RequestSongButton';

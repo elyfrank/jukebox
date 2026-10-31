@@ -9,6 +9,8 @@ import {
   PartyEndedBanner,
   PartyHeaderActions,
   QueueList,
+  ReactionBar,
+  ReactionOverlay,
   RemovedNotice,
   RequestSongButton,
 } from '@/components/party';
@@ -17,6 +19,7 @@ import { useParty } from '@/hooks/useParty';
 import { usePartyMenu } from '@/hooks/usePartyMenu';
 import { usePromotionNotice } from '@/hooks/usePromotionNotice';
 import { useQueueActions } from '@/hooks/useQueueActions';
+import { useReactions } from '@/hooks/useReactions';
 import { useAuth } from '@/lib/auth';
 import type { QueueItem } from '@/lib/db';
 import { useTheme } from '@/lib/theme';
@@ -36,6 +39,7 @@ export default function PartyScreen() {
   usePromotionNotice(isHost, !!party);
   const actions = useQueueActions({ isHost, userId, playing, queued, reload });
   const { openMenu } = usePartyMenu({ party, isHost, userId, reload });
+  const reactions = useReactions(id, !!party && !party.ended_at && !removed);
 
   if (removed) return <RemovedNotice />;
   if (!party) {
@@ -78,6 +82,7 @@ export default function PartyScreen() {
           requesterName={requesterName}
           emptyHint={isHost && queued.length > 0 ? 'Nada tocando. Toque em "Tocar a primeira".' : 'Nada tocando no momento.'}
         />
+        {open && playing && <ReactionBar onReact={reactions.send} />}
         {isHost && open && <HostControls playing={playing} hasQueue={queued.length > 0} onNext={actions.playNext} />}
         <Segmented
           value={tab}
@@ -111,6 +116,7 @@ export default function PartyScreen() {
         />
       )}
 
+      <ReactionOverlay reactions={reactions.floating} bottom={90 + insets.bottom} onDone={reactions.remove} />
       {open && <RequestSongButton onPress={() => goTo('/party/[id]/search')} bottom={16 + insets.bottom} />}
     </View>
   );
