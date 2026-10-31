@@ -194,7 +194,8 @@ const logos = {
 // Logo do app (símbolo + nome), na versão clara ou escura conforme o tema.
 export function Logo({ width = 160 }: { width?: number }) {
   const { scheme } = useTheme();
-  return <Image source={logos[scheme]} style={{ width, aspectRatio: 1000 / 1033 }} resizeMode="contain" />;
+  // Largura e altura explícitas: só com aspectRatio a imagem saía no tamanho original no Android.
+  return <Image source={logos[scheme]} style={{ width, height: (width * 1033) / 1000 }} resizeMode="contain" />;
 }
 
 // Mensagem de erro legível a partir do que o Supabase devolve.

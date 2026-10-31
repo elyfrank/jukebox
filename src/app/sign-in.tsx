@@ -85,7 +85,7 @@ export default function SignIn() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={{ alignItems: 'center', gap: 12 }}>
-            <Logo width={160} />
+            <Logo width={140} />
             <Text style={[styles.muted, { textAlign: 'center' }]}>A fila é de todo mundo.</Text>
           </View>
           {mode === 'verify' ? (
