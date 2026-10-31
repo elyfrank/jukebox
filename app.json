@@ -26,6 +26,13 @@
       "expo-router",
       "expo-sqlite",
       [
+        "expo-camera",
+        {
+          "cameraPermission": "O $(PRODUCT_NAME) usa a câmera para escanear o QR code da festa.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./public/images/tela-abertura/logo-claro.png",

@@ -2,9 +2,11 @@
 
 # Jukebox
 
-App Android (Expo + React Native + TypeScript) de fila de músicas em grupo: as pessoas entram numa
-sala, sugerem músicas e votam nas próximas. Por enquanto só existe a base (login, perfil, tema); a
-aba Fila (`src/app/(tabs)/index.tsx`) é um espaço reservado.
+App Android (Expo + React Native + TypeScript) de fila de músicas em festas: quem cria a festa é o
+host; os convidados entram pelo código ou QR code, buscam músicas (API pública do iTunes,
+`src/lib/itunes.ts`) e pedem; a fila é por ordem de chegada e só o host muda o status (tocar, pular,
+já tocou) e abre a música no player dele (Spotify, YouTube Music, Deezer). Telas da festa em
+`src/app/party/[id]/`; a fila atualiza em tempo real (Supabase Realtime).
 
 - Backend: Supabase (auth por e-mail/senha). Banco em `supabase/migrations/NNN_nome.sql`: cada
   mudança é uma migração nova (nunca editar uma já aplicada). Com o projeto ligado pelo Supabase CLI,

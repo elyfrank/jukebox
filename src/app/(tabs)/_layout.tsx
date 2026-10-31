@@ -11,7 +11,7 @@ function icon(emoji: string) {
 export default function TabsLayout() {
   return (
     <Tabs>
-      <Tabs.Screen name="index" options={{ title: 'Fila', tabBarIcon: icon('🎵') }} />
+      <Tabs.Screen name="index" options={{ title: 'Festas', tabBarIcon: icon('🎉') }} />
       <Tabs.Screen name="settings" options={{ title: 'Configurações', tabBarIcon: icon('⚙️') }} />
     </Tabs>
   );

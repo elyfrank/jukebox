@@ -22,6 +22,12 @@ function RootStack() {
     <Stack screenOptions={{ headerTintColor: colors.primary }}>
       <Stack.Protected guard={!!session}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="create-party" options={{ title: 'Nova festa' }} />
+        <Stack.Screen name="join" options={{ title: 'Entrar numa festa' }} />
+        <Stack.Screen name="scan" options={{ title: 'Escanear QR code' }} />
+        <Stack.Screen name="party/[id]/index" options={{ title: 'Festa' }} />
+        <Stack.Screen name="party/[id]/search" options={{ title: 'Pedir música' }} />
+        <Stack.Screen name="party/[id]/invite" options={{ title: 'Convidar' }} />
       </Stack.Protected>
       <Stack.Protected guard={!session}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
