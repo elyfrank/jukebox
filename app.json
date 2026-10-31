@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Jukebox",
+    "slug": "jukebox",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#6D28D9"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.jukebox.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite"
+    ],
+    "scheme": "jukebox",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "aa4d0bba-f8ee-4bb0-8185-8f4f9a32d9d8"
+      }
+    },
+    "owner": "elyfrank"
+  }
+}

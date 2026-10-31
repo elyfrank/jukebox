@@ -1,0 +1,65 @@
+JUKEBOX — ÍCONES E LOGO
+=======================
+
+ios/
+  AppIcon-1024.png ........... Ícone da App Store (1024x1024, quadrado, sem transparência).
+                               O iPhone arredonda os cantos sozinho.
+  AppIcon-1024-escuro.png .... Variante para o ícone escuro do iOS 18+.
+
+android/
+  play-store-512.png ......... Ícone da Play Store (512x512, quadrado).
+  adaptive-foreground-1024.png Frente do ícone adaptativo (símbolo, fundo transparente).
+  adaptive-background-1024.png Fundo do ícone adaptativo (cor #6D28D9).
+  adaptive-monochrome-1024.png Ícone temático do Android 13+ (símbolo branco).
+  notificacao-96.png ......... Ícone pequeno da barra de notificação (branco, transparente).
+
+tela-abertura/
+  logo-claro.png / logo-escuro.png .................. Ícone + nome + slogan, fundo transparente.
+  logo-claro-sem-slogan.png / logo-escuro-sem-slogan.png
+  tela-cheia-claro/escuro-1290x2796.png ............. Tela inteira pronta, para prévia ou loja.
+
+icones/   Ícone arredondado claro e escuro (512 e 1024), igual ao do canvas.
+web/      favicon-32, favicon-48, icon-192, icon-512 (para site / PWA).
+logo/     Logo horizontal (ícone + nome) claro e escuro, para cabeçalhos.
+simbolo/  Só o símbolo, em branco, roxo e escuro.
+svg-fonte/ Arquivos vetoriais de tudo acima (o texto já está convertido em curvas).
+
+CORES
+  Claro:  fundo #F7F5FB · texto #1E1A2B · secundário #6B6580 · primária #6D28D9
+  Escuro: fundo #121019 · card #1C1926 · texto #EEEAF7 · secundário #9D96B3 · primária #A78BFA
+
+EXEMPLO PARA EXPO (app.json)
+{
+  "expo": {
+    "name": "JukeBox",
+    "icon": "./assets/ios/AppIcon-1024.png",
+    "ios": {
+      "icon": {
+        "light": "./assets/ios/AppIcon-1024.png",
+        "dark": "./assets/ios/AppIcon-1024-escuro.png"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android/adaptive-foreground-1024.png",
+        "monochromeImage": "./assets/android/adaptive-monochrome-1024.png",
+        "backgroundColor": "#6D28D9"
+      }
+    },
+    "plugins": [
+      ["expo-splash-screen", {
+        "image": "./assets/tela-abertura/logo-claro.png",
+        "imageWidth": 220,
+        "resizeMode": "contain",
+        "backgroundColor": "#F7F5FB",
+        "dark": {
+          "image": "./assets/tela-abertura/logo-escuro.png",
+          "backgroundColor": "#121019"
+        }
+      }]
+    ]
+  }
+}
+
+FONTES usadas no nome: Bricolage Grotesque (ExtraBold) e DM Sans (Medium), ambas gratuitas
+no Google Fonts (licença OFL).
