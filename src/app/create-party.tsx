@@ -2,8 +2,10 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text } from 'react-native';
 
+import { Button, Card, Input } from '@/components/ui';
 import { createParty } from '@/lib/db';
-import { Button, Card, Input, errorMessage, useTheme } from '@/lib/ui';
+import { errorMessage } from '@/lib/errors';
+import { useTheme } from '@/lib/theme';
 
 export default function CreatePartyScreen() {
   const { styles } = useTheme();

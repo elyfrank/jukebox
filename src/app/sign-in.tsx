@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Button, Card, Input, Logo, showDialog } from '@/components/ui';
+import { errorMessage } from '@/lib/errors';
 import { supabase } from '@/lib/supabase';
-import { Button, Card, Input, Logo, errorMessage, showDialog, useTheme } from '@/lib/ui';
+import { useTheme } from '@/lib/theme';
 
 // O Supabase devolve mensagens em inglês; traduz as mais comuns pelo código do erro.
 const authErrors: Record<string, string> = {

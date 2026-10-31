@@ -2,10 +2,12 @@ import Constants from 'expo-constants';
 import { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import { Button, Card, Input, showDialog } from '@/components/ui';
 import { useAuth } from '@/lib/auth';
 import { getProfile, updateName } from '@/lib/db';
+import { errorMessage } from '@/lib/errors';
 import { supabase } from '@/lib/supabase';
-import { Button, Card, Input, errorMessage, showDialog, useTheme, type ThemeMode } from '@/lib/ui';
+import { useTheme, type ThemeMode } from '@/lib/theme';
 
 const themeOptions: { mode: ThemeMode; label: string }[] = [
   { mode: 'system', label: 'Sistema' },

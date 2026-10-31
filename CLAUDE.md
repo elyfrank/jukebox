@@ -17,8 +17,9 @@ já tocou) e abre a música no player dele (Spotify, YouTube Music, Deezer). Tel
   (RLS, funções, triggers), nunca só no app.
 - Chaves em `.env` (`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`). O Expo só lê
   variáveis com prefixo `EXPO_PUBLIC_`.
-- Consultas ao banco ficam em `src/lib/db.ts`; telas em `src/app/`; tema e componentes em `src/lib/ui.tsx`
-  (em migração para a organização da seção "Código" abaixo).
+- Consultas ao banco em `src/lib/db.ts`; tema em `src/lib/theme/`; diálogos com `showDialog`
+  (`src/components/ui/Dialog.tsx`, no lugar do `Alert`, que não aparece no navegador). Organização
+  das pastas na seção "Código" abaixo.
 - Ícones, logo e tela de abertura vêm de `public/images/` (ver `app.json`); ícones de interface com
   `@expo/vector-icons` (MaterialIcons).
 

@@ -2,17 +2,6 @@ import createQR from 'qrcode-generator';
 import { useMemo } from 'react';
 import { View } from 'react-native';
 
-// Link do convite: abre a tela de entrar já com o código (no app instalado pelo build).
-export function inviteLink(code: string) {
-  return `jukebox://join?code=${code}`;
-}
-
-// Tira o código de convite de um QR code lido (link do convite ou só o código).
-export function codeFromScan(data: string) {
-  const match = data.match(/code=([A-Za-z0-9]{6})/) ?? data.trim().match(/^([A-Za-z0-9]{6})$/);
-  return match ? match[1].toUpperCase() : null;
-}
-
 // QR code desenhado com Views (sem dependência nativa). Fundo sempre branco para a câmera ler.
 export function QRCode({ value, size = 220 }: { value: string; size?: number }) {
   const rows = useMemo(() => {

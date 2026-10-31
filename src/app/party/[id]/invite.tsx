@@ -2,9 +2,11 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, Share, Text, View } from 'react-native';
 
+import { Button, Card, QRCode } from '@/components/ui';
 import { getParty, type Party } from '@/lib/db';
-import { QRCode, inviteLink } from '@/lib/qr';
-import { Button, Card, errorMessage, useTheme } from '@/lib/ui';
+import { errorMessage } from '@/lib/errors';
+import { inviteLink } from '@/lib/invite';
+import { useTheme } from '@/lib/theme';
 
 export default function InviteScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

@@ -2,8 +2,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+import { DialogHost } from '@/components/ui';
 import { AuthProvider, useAuth } from '@/lib/auth';
-import { ThemeProvider, useTheme } from '@/lib/ui';
+import { ThemeProvider, useTheme } from '@/lib/theme';
 
 // A tela de abertura (logo) fica visível até a sessão salva ser carregada.
 SplashScreen.preventAutoHideAsync();
@@ -42,6 +43,7 @@ export default function RootLayout() {
       <AuthProvider>
         <RootStack />
       </AuthProvider>
+      <DialogHost />
     </ThemeProvider>
   );
 }

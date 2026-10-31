@@ -3,9 +3,11 @@ import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+import { Button, Card } from '@/components/ui';
 import { joinParty } from '@/lib/db';
-import { codeFromScan } from '@/lib/qr';
-import { Button, Card, errorMessage, useTheme } from '@/lib/ui';
+import { errorMessage } from '@/lib/errors';
+import { codeFromScan } from '@/lib/invite';
+import { useTheme } from '@/lib/theme';
 
 export default function ScanScreen() {
   const { colors, styles } = useTheme();

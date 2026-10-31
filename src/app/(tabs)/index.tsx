@@ -2,9 +2,11 @@ import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 
+import { Button, Card } from '@/components/ui';
 import { useAuth } from '@/lib/auth';
 import { listMyParties, type Party } from '@/lib/db';
-import { Button, Card, errorMessage, useTheme } from '@/lib/ui';
+import { errorMessage } from '@/lib/errors';
+import { useTheme } from '@/lib/theme';
 
 export default function PartiesScreen() {
   const { session } = useAuth();
