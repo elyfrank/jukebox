@@ -17,8 +17,30 @@ já tocou) e abre a música no player dele (Spotify, YouTube Music, Deezer). Tel
   (RLS, funções, triggers), nunca só no app.
 - Chaves em `.env` (`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`). O Expo só lê
   variáveis com prefixo `EXPO_PUBLIC_`.
-- Consultas ao banco ficam em `src/lib/db.ts`; telas em `src/app/`; tema e componentes em `src/lib/ui.tsx`.
-- Ainda sem `projectId` do EAS e sem ícone/logo: `npx eas-cli@latest init` antes do primeiro build.
+- Consultas ao banco ficam em `src/lib/db.ts`; telas em `src/app/`; tema e componentes em `src/lib/ui.tsx`
+  (em migração para a organização da seção "Código" abaixo).
+- Ícones, logo e tela de abertura vêm de `public/images/` (ver `app.json`); ícones de interface com
+  `@expo/vector-icons` (MaterialIcons).
+
+## Código
+
+Sempre seguir SOLID e Clean Code, com a arquitetura organizada:
+
+- **Responsabilidade única:** cada arquivo, componente, hook e função faz uma coisa só. Se precisar de
+  "e" para descrever, dividir.
+- **Componentes pequenos:** alvo de até ~150 linhas por arquivo de componente/tela. Passou disso,
+  extrair subcomponentes ou hooks.
+- **Camadas:**
+  - `src/app/`: telas e rotas. Só montam a tela juntando componentes e hooks; sem regra de negócio,
+    sem chamar o Supabase direto.
+  - `src/components/`: componentes visuais, um por arquivo. `ui/` para os genéricos (botão, card,
+    diálogo, abas); pastas por domínio para os específicos (ex.: `party/`).
+  - `src/hooks/`: estado, efeitos e orquestração de dados das telas (ex.: `useParty`).
+  - `src/lib/`: acesso a dados (`db.ts`), integrações externas (`itunes.ts`), tema e utilitários puros.
+- **Nomes claros** em vez de comentários óbvios; comentário só para explicar o porquê.
+- **Sem duplicação:** antes de criar, procurar se já existe algo reaproveitável.
+- **Escopo:** mudar só o que a tarefa pede. Refatorações fora do escopo são sugeridas, não feitas sem
+  o usuário pedir.
 
 ## Ambiente
 
