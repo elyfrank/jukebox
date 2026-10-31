@@ -1,6 +1,6 @@
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, Linking, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
 
 import { useAuth } from '@/lib/auth';
 import {
@@ -16,8 +16,8 @@ import {
   type QueueItem,
   type QueueStatus,
 } from '@/lib/db';
-import { playerLinks } from '@/lib/itunes';
-import { Button, Card, SongRow, errorMessage, useTheme } from '@/lib/ui';
+import { openInPlayer, playerLinks } from '@/lib/itunes';
+import { Button, Card, SongRow, errorMessage, showDialog, useTheme } from '@/lib/ui';
 
 export default function PartyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -61,7 +61,7 @@ export default function PartyScreen() {
       await action();
       await load();
     } catch (e) {
-      Alert.alert('Erro', errorMessage(e));
+      showDialog('Erro', errorMessage(e));
     }
   }
 
@@ -80,12 +80,14 @@ export default function PartyScreen() {
   const queued = queue.filter((q) => q.status === 'queued');
   const history = queue.filter((q) => q.status === 'played' || q.status === 'skipped').reverse();
 
-  function openInPlayer(item: QueueItem) {
-    Alert.alert(
+  function choosePlayer(item: QueueItem) {
+    showDialog(
       'Abrir em qual player?',
       `${item.title} — ${item.artist}`,
-      playerLinks(item).map((p) => ({ text: p.label, onPress: () => Linking.openURL(p.url) })),
-      { cancelable: true },
+      [
+        ...playerLinks(item).map((p) => ({ text: p.label, onPress: () => openInPlayer(p) })),
+        { text: 'Agora não', style: 'cancel' },
+      ],
     );
   }
 
@@ -96,25 +98,25 @@ export default function PartyScreen() {
   function onPressItem(item: QueueItem) {
     if (ended) return;
     if (isHost && item.status === 'queued') {
-      Alert.alert(item.title, item.artist, [
+      showDialog(item.title, item.artist, [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Pular', style: 'destructive', onPress: () => setStatus(item, 'skipped') },
         {
           text: 'Tocar agora',
           onPress: async () => {
             await setStatus(item, 'playing');
-            openInPlayer(item);
+            choosePlayer(item);
           },
         },
       ]);
     } else if (isHost && item.status === 'playing') {
-      Alert.alert(item.title, item.artist, [
+      showDialog(item.title, item.artist, [
         { text: 'Cancelar', style: 'cancel' },
-        { text: 'Abrir no player', onPress: () => openInPlayer(item) },
+        { text: 'Abrir no player', onPress: () => choosePlayer(item) },
         { text: 'Já tocou', onPress: () => setStatus(item, 'played') },
       ]);
     } else if (item.requested_by === userId && item.status === 'queued') {
-      Alert.alert('Tirar da fila?', `${item.title} — ${item.artist}`, [
+      showDialog('Tirar da fila?', `${item.title} — ${item.artist}`, [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Tirar', style: 'destructive', onPress: () => run(() => removeFromQueue(item.id)) },
       ]);
@@ -122,14 +124,14 @@ export default function PartyScreen() {
   }
 
   function confirmEnd() {
-    Alert.alert('Encerrar a festa?', 'Ninguém mais poderá entrar nem pedir músicas.', [
+    showDialog('Encerrar a festa?', 'Ninguém mais poderá entrar nem pedir músicas.', [
       { text: 'Cancelar', style: 'cancel' },
       { text: 'Encerrar', style: 'destructive', onPress: () => run(() => endParty(party!.id)) },
     ]);
   }
 
   function confirmLeave() {
-    Alert.alert('Sair da festa?', 'Você pode voltar depois com o código.', [
+    showDialog('Sair da festa?', 'Você pode voltar depois com o código.', [
       { text: 'Cancelar', style: 'cancel' },
       {
         text: 'Sair',
@@ -139,7 +141,7 @@ export default function PartyScreen() {
             await leaveParty(party!.id, userId);
             router.back();
           } catch (e) {
-            Alert.alert('Erro', errorMessage(e));
+            showDialog('Erro', errorMessage(e));
           }
         },
       },

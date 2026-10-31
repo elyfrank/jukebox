@@ -1,11 +1,11 @@
 import Constants from 'expo-constants';
 import { useEffect, useState } from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 import { useAuth } from '@/lib/auth';
 import { getProfile, updateName } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
-import { Button, Card, Input, errorMessage, useTheme, type ThemeMode } from '@/lib/ui';
+import { Button, Card, Input, errorMessage, showDialog, useTheme, type ThemeMode } from '@/lib/ui';
 
 const themeOptions: { mode: ThemeMode; label: string }[] = [
   { mode: 'system', label: 'Sistema' },
@@ -27,25 +27,25 @@ export default function SettingsScreen() {
         setName(p.name);
         setSavedName(p.name);
       })
-      .catch((e) => Alert.alert('Erro', errorMessage(e)));
+      .catch((e) => showDialog('Erro', errorMessage(e)));
   }, [userId]);
 
   async function saveName() {
-    if (!name.trim()) return Alert.alert('Informe seu nome');
+    if (!name.trim()) return showDialog('Informe seu nome');
     setSaving(true);
     try {
       await updateName(userId, name);
       setSavedName(name.trim());
-      Alert.alert('Nome atualizado');
+      showDialog('Nome atualizado');
     } catch (e) {
-      Alert.alert('Erro', errorMessage(e));
+      showDialog('Erro', errorMessage(e));
     } finally {
       setSaving(false);
     }
   }
 
   function confirmSignOut() {
-    Alert.alert('Sair da conta?', undefined, [
+    showDialog('Sair da conta?', undefined, [
       { text: 'Cancelar', style: 'cancel' },
       { text: 'Sair', style: 'destructive', onPress: () => supabase.auth.signOut() },
     ]);

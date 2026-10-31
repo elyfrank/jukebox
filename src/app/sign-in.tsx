@@ -1,10 +1,10 @@
 import { isAuthError } from '@supabase/supabase-js';
 import { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { supabase } from '@/lib/supabase';
-import { Button, Card, Input, Logo, errorMessage, useTheme } from '@/lib/ui';
+import { Button, Card, Input, Logo, errorMessage, showDialog, useTheme } from '@/lib/ui';
 
 // O Supabase devolve mensagens em inglês; traduz as mais comuns pelo código do erro.
 const authErrors: Record<string, string> = {
@@ -74,7 +74,7 @@ export default function SignIn() {
     setError('');
     const { error } = await supabase.auth.resend({ type: 'signup', email: email.trim() });
     if (error) setError(authErrorMessage(error));
-    else Alert.alert('Código reenviado', `Confira a caixa de entrada de ${email.trim()}.`);
+    else showDialog('Código reenviado', `Confira a caixa de entrada de ${email.trim()}.`);
   }
 
   return (
