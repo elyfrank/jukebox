@@ -24,6 +24,10 @@ já tocou) e abre a música no player dele (Spotify, YouTube Music, Deezer). Tel
 - Consultas ao banco em `src/lib/db.ts`; tema em `src/lib/theme/`; diálogos com `showDialog`
   (`src/components/ui/Dialog.tsx`, no lugar do `Alert`, que não aparece no navegador). Organização
   das pastas na seção "Código" abaixo.
+- APK: `npx eas-cli@latest build --platform android --profile preview` (as variáveis `EXPO_PUBLIC_*` do
+  build ficam no ambiente `preview` do EAS, não no `.env`). Página de download em
+  `https://elyfrank.github.io/jukebox/` (`docs/index.html`, GitHub Pages da pasta `/docs` da `main`): a cada
+  build novo, atualizar `APK_URL` e `APK_VERSION` nela.
 - Ícones, logo e tela de abertura vêm de `public/images/` (ver `app.json`); ícones de interface com
   `@expo/vector-icons` (MaterialIcons).
 

@@ -1,0 +1,99 @@
+/* Estilo das páginas do JukeBox no GitHub Pages: mesmo visual das imagens da Google Play
+   (roxo vibrante, arcos translúcidos do símbolo, Bricolage Grotesque nos títulos e DM Sans no texto). */
+:root {
+  --roxo: #6D28D9;
+  --roxo-escuro: #5B21B6;
+  --roxo-claro: #A78BFA;
+  --lilas: #EDE9FE;
+  --branco: #FFFFFF;
+  --fundo: #121019;
+  --card: #1C1926;
+  --texto: #EEEAF7;
+  --apoio: #9D96B3;
+  --borda: #332E44;
+  --titulo: 'Bricolage Grotesque', system-ui, sans-serif;
+  --corpo: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--corpo); line-height: 1.6; }
+a { color: var(--roxo-claro); }
+img { max-width: 100%; display: block; }
+.container { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* Topo roxo com os arcos do símbolo ao fundo */
+.hero {
+  position: relative; overflow: hidden; color: var(--branco);
+  background: linear-gradient(160deg, var(--roxo) 0%, var(--roxo-escuro) 100%);
+  padding: 56px 0 64px;
+}
+.hero::before, .hero::after {
+  content: ''; position: absolute; border-radius: 50% 50% 0 0;
+  border: 48px solid rgba(255, 255, 255, 0.07); border-bottom: none; pointer-events: none;
+}
+.hero::before { width: 560px; height: 620px; left: -180px; bottom: -260px; }
+.hero::after { width: 420px; height: 480px; right: -120px; top: -140px; }
+.hero .container { position: relative; display: grid; gap: 40px; align-items: center; }
+.hero-text { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.app-icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3); }
+h1, h2, h3 { font-family: var(--titulo); font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+.hero h1 { font-size: clamp(48px, 9vw, 88px); }
+.hero .lead { font-size: clamp(18px, 3vw, 24px); margin: 0; opacity: 0.92; }
+.hero-shot { justify-self: center; width: min(320px, 80vw); border-radius: 28px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+
+.button {
+  display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 999px;
+  font-family: var(--corpo); font-size: 17px; font-weight: 700; text-decoration: none;
+  background: var(--branco); color: var(--roxo); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+.button:hover { transform: translateY(-2px); }
+.button svg { width: 22px; height: 22px; fill: currentColor; }
+.small { font-size: 14px; opacity: 0.85; margin: 0; }
+
+/* Seções escuras */
+section.block { padding: 64px 0; }
+section.block h2 { font-size: clamp(30px, 5vw, 44px); margin-bottom: 8px; }
+section.block .sub { color: var(--apoio); margin: 0 0 32px; font-size: 18px; }
+
+.steps { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.step { background: var(--card); border: 1px solid var(--borda); border-radius: 16px; padding: 20px; }
+.step .emoji { font-size: 32px; }
+.step h3 { font-size: 20px; margin: 8px 0 4px; }
+.step p { margin: 0; color: var(--apoio); }
+
+/* Galeria das capturas, rolando para o lado */
+.gallery {
+  display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 4px 20px 16px; margin: 0 -20px; scrollbar-color: var(--roxo) transparent;
+}
+.gallery img {
+  flex: 0 0 auto; width: 240px; height: auto; border-radius: 20px; scroll-snap-align: center;
+  border: 1px solid var(--borda);
+}
+
+.install ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 17px; }
+.install .card { background: var(--card); border: 1px solid var(--borda); border-radius: 16px; padding: 24px; }
+
+/* Faixa final roxa com o botão de novo */
+.cta { background: var(--roxo); color: var(--branco); text-align: center; padding: 56px 0; }
+.cta h2 { font-size: clamp(30px, 5vw, 44px); margin-bottom: 20px; }
+
+footer { padding: 32px 0; color: var(--apoio); font-size: 14px; text-align: center; }
+footer nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+
+/* Página de texto (política de privacidade) */
+.page-hero { background: var(--roxo); color: var(--branco); padding: 40px 0; }
+.page-hero a.back { color: var(--lilas); text-decoration: none; font-weight: 600; }
+.page-hero h1 { font-size: clamp(34px, 6vw, 52px); margin-top: 12px; }
+.prose { max-width: 760px; padding: 40px 20px 24px; margin: 0 auto; }
+.prose h2 { font-size: 24px; margin: 32px 0 8px; color: var(--branco); }
+.prose p, .prose li { color: var(--texto); }
+.prose ul { padding-left: 22px; }
+.prose .updated { color: var(--apoio); }
+
+@media (min-width: 860px) {
+  .hero { padding: 80px 0; }
+  .hero .container { grid-template-columns: 1.1fr 0.9fr; }
+}

@@ -1,0 +1,24 @@
+JUKEBOX — MATERIAL PARA A GOOGLE PLAY
+=====================================
+
+Play Console > Presença na loja > Página principal da loja:
+
+  icone-512.png ................. Ícone do app (512x512, PNG 32 bits com transparência)
+  imagem-destaque-1024x500.png .. Imagem de destaque (obrigatória)
+  captura-01.png a captura-07.png Capturas de tela do celular (1080x1920, 9:16)
+                                  Suba nessa ordem: a primeira é a que mais aparece.
+
+Ordem e frases:
+  01 Login ............ A fila é de todo mundo
+  02 Início ........... Crie sua festa em segundos
+  03 Convidar ......... Convide com QR code
+  04 Pedir música ..... Peça qualquer música
+  05 Fila ............. Veja a fila ao vivo
+  06 Pessoas .......... Escolha quem é DJ
+  07 Configurações .... Do seu jeito
+
+Ajustes feitos nos prints:
+  - Barra de status trocada por uma limpa (9:41, sinal e bateria cheios).
+  - Seu e-mail na tela de Configurações foi trocado por voce@email.com.
+  - O botão flutuante de engrenagem foi removido nas telas Início, Pessoas e Configurações.
+    Nas demais ele fica sobre o conteúdo; para tirar, refaça esses prints sem ele.

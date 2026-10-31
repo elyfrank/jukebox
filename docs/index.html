@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JukeBox — a fila da festa é de todo mundo</title>
+  <meta name="description" content="Crie uma festa, chame os amigos e deixe todo mundo pedir as músicas. Baixe o JukeBox para Android." />
+  <meta property="og:title" content="JukeBox — a fila da festa é de todo mundo" />
+  <meta property="og:description" content="Crie uma festa, chame os amigos e deixe todo mundo pedir as músicas." />
+  <meta property="og:image" content="https://elyfrank.github.io/jukebox/og-image.png" />
+  <meta name="theme-color" content="#6D28D9" />
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-text">
+        <img class="app-icon" src="logo.png" alt="Ícone do JukeBox" />
+        <h1>JukeBox</h1>
+        <p class="lead">A fila da festa é de todo mundo. Peça músicas, reaja ao vivo e deixe o DJ tocar no player favorito.</p>
+        <a class="button download" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+          Baixar para Android
+        </a>
+        <p class="small version"></p>
+      </div>
+      <img class="hero-shot" src="capturas/captura-02.png" alt="Tela inicial do JukeBox com as suas festas" />
+    </div>
+  </header>
+
+  <main>
+    <section class="block">
+      <div class="container">
+        <h2>Como funciona</h2>
+        <p class="sub">Da criação da festa à última música, em poucos toques.</p>
+        <div class="steps">
+          <div class="step"><div class="emoji">🎉</div><h3>Crie a festa</h3><p>Você vira o DJ e ganha um código e um QR code para os amigos entrarem.</p></div>
+          <div class="step"><div class="emoji">🔎</div><h3>Todo mundo pede</h3><p>Cada um busca qualquer música, ouve uma prévia e manda para a fila.</p></div>
+          <div class="step"><div class="emoji">🎧</div><h3>O DJ toca</h3><p>A fila chega ao vivo e o DJ abre a música no Spotify, YouTube Music ou Deezer.</p></div>
+          <div class="step"><div class="emoji">🔥</div><h3>Reaja ao vivo</h3><p>Emojis sobem na tela de todo mundo durante a música que está tocando.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" style="padding-top: 0">
+      <div class="container">
+        <h2>Por dentro do app</h2>
+        <p class="sub">Arraste para o lado para ver as telas.</p>
+        <div class="gallery">
+          <img src="capturas/captura-01.png" alt="A fila é de todo mundo: tela de login" loading="lazy" />
+          <img src="capturas/captura-02.png" alt="Crie sua festa em segundos: tela inicial" loading="lazy" />
+          <img src="capturas/captura-03.png" alt="Convide com QR code" loading="lazy" />
+          <img src="capturas/captura-04.png" alt="Peça qualquer música: busca com prévia" loading="lazy" />
+          <img src="capturas/captura-05.png" alt="Veja a fila ao vivo: tela da festa" loading="lazy" />
+          <img src="capturas/captura-06.png" alt="Escolha quem é DJ: tela de pessoas" loading="lazy" />
+          <img src="capturas/captura-07.png" alt="Do seu jeito: configurações" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="block install" style="padding-top: 0">
+      <div class="container">
+        <h2>Como instalar</h2>
+        <p class="sub">O JukeBox está disponível para Android por enquanto.</p>
+        <div class="card">
+          <ol>
+            <li>Toque em <strong>Baixar para Android</strong> e abra o arquivo <code>.apk</code> baixado.</li>
+            <li>Se o Android pedir, permita <strong>instalar apps desta fonte</strong> (o navegador).</li>
+            <li>Toque em <strong>Instalar</strong>, abra o JukeBox e crie sua conta.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2>Bora fazer a festa?</h2>
+        <a class="button download" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+          Baixar para Android
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <nav>
+        <a href="privacidade.html">Política de privacidade</a>
+        <a href="https://github.com/elyfrank/jukebox">Código no GitHub</a>
+      </nav>
+      <p>© 2026 Ely Frank · JukeBox</p>
+    </div>
+  </footer>
+
+  <script>
+    // APK mais recente (EAS Build). Atualize a cada build novo.
+    const APK_URL = 'https://expo.dev/artifacts/eas/Vd91D8gEbOtRxC00v38A5q7e3obKtETjBAWXDiITats.apk';
+    const APK_VERSION = '1.0.0';
+
+    document.querySelectorAll('.download').forEach((a) => (a.href = APK_URL));
+    document.querySelector('.version').textContent = 'Versão ' + APK_VERSION + ' · arquivo .apk';
+  </script>
+</body>
+</html>
