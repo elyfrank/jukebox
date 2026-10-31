@@ -4,7 +4,7 @@ import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, Vie
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { supabase } from '@/lib/supabase';
-import { Button, Card, Input, errorMessage, useTheme } from '@/lib/ui';
+import { Button, Card, Input, Logo, errorMessage, useTheme } from '@/lib/ui';
 
 // O Supabase devolve mensagens em inglês; traduz as mais comuns pelo código do erro.
 const authErrors: Record<string, string> = {
@@ -85,10 +85,8 @@ export default function SignIn() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={{ alignItems: 'center', gap: 12 }}>
-            <Text style={[styles.title, { fontSize: 36, fontWeight: '800' }]}>
-              Juke<Text style={{ color: colors.primary }}>box</Text>
-            </Text>
-            <Text style={[styles.muted, { textAlign: 'center' }]}>A fila de músicas que todo mundo escolhe junto.</Text>
+            <Logo width={160} />
+            <Text style={[styles.muted, { textAlign: 'center' }]}>A fila é de todo mundo.</Text>
           </View>
           {mode === 'verify' ? (
             <Card>

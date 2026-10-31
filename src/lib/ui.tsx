@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -183,6 +184,17 @@ export function Input(props: TextInputProps) {
 export function Card({ children }: { children: ReactNode }) {
   const { styles } = useTheme();
   return <View style={styles.card}>{children}</View>;
+}
+
+const logos = {
+  light: require('../../public/images/tela-abertura/logo-claro-sem-slogan.png'),
+  dark: require('../../public/images/tela-abertura/logo-escuro-sem-slogan.png'),
+};
+
+// Logo do app (símbolo + nome), na versão clara ou escura conforme o tema.
+export function Logo({ width = 160 }: { width?: number }) {
+  const { scheme } = useTheme();
+  return <Image source={logos[scheme]} style={{ width, aspectRatio: 1000 / 1033 }} resizeMode="contain" />;
 }
 
 // Mensagem de erro legível a partir do que o Supabase devolve.

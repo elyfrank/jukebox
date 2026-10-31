@@ -1,20 +1,22 @@
 import { Stack } from 'expo-router';
-import { ActivityIndicator, View } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
 import { AuthProvider, useAuth } from '@/lib/auth';
 import { ThemeProvider, useTheme } from '@/lib/ui';
+
+// A tela de abertura (logo) fica visível até a sessão salva ser carregada.
+SplashScreen.preventAutoHideAsync();
 
 function RootStack() {
   const { session, loading } = useAuth();
   const { colors } = useTheme();
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', backgroundColor: colors.bg }}>
-        <ActivityIndicator color={colors.primary} />
-      </View>
-    );
-  }
+  useEffect(() => {
+    if (!loading) SplashScreen.hide();
+  }, [loading]);
+
+  if (loading) return null;
 
   return (
     <Stack screenOptions={{ headerTintColor: colors.primary }}>

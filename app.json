@@ -1,15 +1,22 @@
 {
   "expo": {
-    "name": "Jukebox",
+    "name": "JukeBox",
     "slug": "jukebox",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
+    "icon": "./public/images/ios/AppIcon-1024.png",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": {
+        "light": "./public/images/ios/AppIcon-1024.png",
+        "dark": "./public/images/ios/AppIcon-1024-escuro.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./public/images/android/adaptive-foreground-1024.png",
+        "monochromeImage": "./public/images/android/adaptive-monochrome-1024.png",
         "backgroundColor": "#6D28D9"
       },
       "predictiveBackGestureEnabled": false,
@@ -17,7 +24,20 @@
     },
     "plugins": [
       "expo-router",
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./public/images/tela-abertura/logo-claro.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#F7F5FB",
+          "dark": {
+            "image": "./public/images/tela-abertura/logo-escuro.png",
+            "backgroundColor": "#121019"
+          }
+        }
+      ]
     ],
     "scheme": "jukebox",
     "experiments": {
@@ -33,6 +53,9 @@
         "projectId": "aa4d0bba-f8ee-4bb0-8185-8f4f9a32d9d8"
       }
     },
-    "owner": "elyfrank"
+    "owner": "elyfrank",
+    "web": {
+      "favicon": "./public/images/web/favicon-48.png"
+    }
   }
 }
