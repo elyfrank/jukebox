@@ -13,22 +13,23 @@ export type Party = {
   creator: Profile | null;
 };
 
-export type MyParty = Party & { role: MemberRole };
+export type MyParty = Party & { role: MemberRole; memberCount: number };
 
 // parties e profiles se ligam por mais de um caminho (criador, membros, fila); "!fkey" diz qual usar.
 const partyColumns = 'id, name, code, host_id, created_at, ended_at, creator:profiles!parties_host_id_fkey(name)';
 
-// Festas abertas das quais o usuário é membro, com o papel dele em cada uma.
+type MyPartyRow = { role: MemberRole; party: Party & { members: { count: number }[] } };
+
+// Festas abertas das quais o usuário é membro, com o papel dele e o nº de pessoas em cada uma.
 export async function listMyParties(userId: string) {
   const { data, error } = await supabase
     .from('party_members')
-    .select(`role, party:parties!inner(${partyColumns})`)
+    .select(`role, party:parties!inner(${partyColumns}, members:party_members(count))`)
     .eq('user_id', userId)
     .is('party.ended_at', null);
   if (error) throw error;
-  const rows = data as unknown as { role: MemberRole; party: Party }[];
-  return rows
-    .map((r): MyParty => ({ ...r.party, role: r.role }))
+  return (data as unknown as MyPartyRow[])
+    .map(({ role, party: { members, ...party } }): MyParty => ({ ...party, role, memberCount: members[0]?.count ?? 0 }))
     .sort((a, b) => b.created_at.localeCompare(a.created_at));
 }
 

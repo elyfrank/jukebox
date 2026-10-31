@@ -1,67 +1,42 @@
-import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { router } from 'expo-router';
 import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EmptyParties, Greeting, QuickActions } from '@/components/home';
 import { PartyCard } from '@/components/party';
-import { Button, Card } from '@/components/ui';
+import { SectionLabel } from '@/components/ui';
+import { useFirstName } from '@/hooks/useFirstName';
+import { useMyParties } from '@/hooks/useMyParties';
 import { useAuth } from '@/lib/auth';
-import { listMyParties, type MyParty } from '@/lib/db';
-import { errorMessage } from '@/lib/errors';
 import { useTheme } from '@/lib/theme';
 
-export default function PartiesScreen() {
+export default function HomeScreen() {
   const userId = useAuth().session!.user.id;
   const { colors, styles } = useTheme();
-  const [parties, setParties] = useState<MyParty[] | null>(null);
-  const [error, setError] = useState('');
-  const [refreshing, setRefreshing] = useState(false);
-
-  const load = useCallback(async () => {
-    try {
-      setParties(await listMyParties(userId));
-      setError('');
-    } catch (e) {
-      setError(errorMessage(e));
-    }
-  }, [userId]);
-
-  // Recarrega ao voltar para esta aba (ex.: depois de sair ou encerrar uma festa).
-  useFocusEffect(
-    useCallback(() => {
-      load();
-    }, [load]),
-  );
-
-  async function refresh() {
-    setRefreshing(true);
-    await load();
-    setRefreshing(false);
-  }
+  const insets = useSafeAreaInsets();
+  const firstName = useFirstName(userId);
+  const { parties, error, refreshing, refresh } = useMyParties(userId);
 
   return (
     <ScrollView
       style={styles.screen}
-      contentContainerStyle={styles.content}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + 24, gap: 24 }]}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} colors={[colors.primary]} />}
     >
-      <Card>
-        <Text style={styles.subtitle}>Bora fazer a festa?</Text>
-        <Text style={styles.muted}>
-          Crie uma festa e passe o código para os amigos, ou entre numa festa com o código ou QR code do DJ.
-        </Text>
-        <Button title="Criar festa" onPress={() => router.push('/create-party')} />
-        <Button title="Entrar numa festa" variant="secondary" onPress={() => router.push('/join')} />
-      </Card>
+      <Greeting name={firstName} />
+      <QuickActions onCreate={() => router.push('/create-party')} onJoin={() => router.push('/join')} />
 
       {!!error && <Text style={styles.error}>{error}</Text>}
 
-      {parties && parties.length > 0 && (
+      {parties && (
         <View style={{ gap: 8 }}>
-          <Text style={styles.subtitle}>Suas festas</Text>
+          <SectionLabel>{`SUAS FESTAS${parties.length ? ` (${parties.length})` : ''}`}</SectionLabel>
+          {parties.length === 0 && <EmptyParties />}
           {parties.map((p) => (
             <PartyCard
               key={p.id}
               party={p}
+              nowPlaying={p.nowPlaying}
               onPress={() => router.push({ pathname: '/party/[id]', params: { id: p.id } })}
             />
           ))}

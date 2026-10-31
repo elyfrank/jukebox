@@ -1,3 +1,4 @@
+export { ActionTile } from './ActionTile';
 export { Button } from './Button';
 export { Card } from './Card';
 export { DialogHost, showDialog, type DialogButton } from './Dialog';

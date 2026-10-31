@@ -32,6 +32,20 @@ export async function listQueue(partyId: string) {
   return data as unknown as QueueItem[];
 }
 
+export type NowPlaying = Pick<QueueItem, 'party_id' | 'title' | 'artist' | 'artwork_url'>;
+
+// O que está tocando agora em cada uma das festas informadas.
+export async function listNowPlaying(partyIds: string[]) {
+  if (partyIds.length === 0) return [];
+  const { data, error } = await supabase
+    .from('queue_items')
+    .select('party_id, title, artist, artwork_url')
+    .eq('status', 'playing')
+    .in('party_id', partyIds);
+  if (error) throw error;
+  return data as NowPlaying[];
+}
+
 export async function requestSong(partyId: string, song: NewQueueItem) {
   const { error } = await supabase.from('queue_items').insert({ party_id: partyId, ...song });
   if (error) throw error;

@@ -15,7 +15,8 @@ function icon(name: IconName) {
 export default function TabsLayout() {
   return (
     <Tabs>
-      <Tabs.Screen name="index" options={{ title: 'Festas', tabBarIcon: icon('celebration') }} />
+      {/* A tela inicial tem saudação própria no lugar do cabeçalho. */}
+      <Tabs.Screen name="index" options={{ title: 'Festas', headerShown: false, tabBarIcon: icon('celebration') }} />
       <Tabs.Screen name="settings" options={{ title: 'Configurações', tabBarIcon: icon('settings') }} />
     </Tabs>
   );
