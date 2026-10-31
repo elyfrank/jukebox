@@ -3,17 +3,22 @@ import { Pressable, Text, View } from 'react-native';
 
 import { useTheme } from '@/lib/theme';
 
-type Props = { members: number; onInvite?: () => void; onMenu: () => void };
+type Props = { members: number; onMembers: () => void; onInvite?: () => void; onMenu: () => void };
 
-// Lado direito do cabeçalho da festa: nº de pessoas, convite (QR code) e menu.
-export function PartyHeaderActions({ members, onInvite, onMenu }: Props) {
+// Lado direito do cabeçalho da festa: pessoas, convite (QR code) e menu.
+export function PartyHeaderActions({ members, onMembers, onInvite, onMenu }: Props) {
   const { colors, styles } = useTheme();
   return (
     <View style={[styles.row, { gap: 16 }]}>
-      <View style={[styles.row, { gap: 4 }]} accessibilityLabel={`${members} pessoas na festa`}>
-        <MaterialIcons name="group" size={20} color={colors.muted} />
-        <Text style={styles.muted}>{members}</Text>
-      </View>
+      <Pressable
+        hitSlop={8}
+        onPress={onMembers}
+        accessibilityLabel={`Pessoas na festa: ${members}`}
+        style={[styles.row, { gap: 4 }]}
+      >
+        <MaterialIcons name="group" size={22} color={colors.primary} />
+        <Text style={{ color: colors.primary, fontWeight: '600' }}>{members}</Text>
+      </Pressable>
       {onInvite && (
         <Pressable hitSlop={8} accessibilityLabel="Convidar" onPress={onInvite}>
           <MaterialIcons name="qr-code-2" size={24} color={colors.primary} />

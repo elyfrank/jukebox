@@ -29,6 +29,7 @@ function RootStack() {
         <Stack.Screen name="party/[id]/index" options={{ title: 'Festa' }} />
         <Stack.Screen name="party/[id]/search" options={{ title: 'Pedir música' }} />
         <Stack.Screen name="party/[id]/invite" options={{ title: 'Convidar' }} />
+        <Stack.Screen name="party/[id]/members" options={{ title: 'Pessoas' }} />
       </Stack.Protected>
       <Stack.Protected guard={!session}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />

@@ -1,13 +1,13 @@
 import { router } from 'expo-router';
 
-import { showDialog } from '@/components/ui';
-import { endParty, leaveParty, type Party } from '@/lib/db';
+import { showDialog, type DialogButton } from '@/components/ui';
+import { endParty, removeMember, type Party } from '@/lib/db';
 
 import { useRunAction } from './useRunAction';
 
 type Params = { party: Party | null; isHost: boolean; userId: string; reload: () => Promise<unknown> };
 
-// Menu "⋮" da festa: o host encerra a festa, o convidado sai dela.
+// Menu "⋮" da festa: hosts encerram a festa; todos podem sair (o último host precisa promover alguém antes).
 export function usePartyMenu({ party, isHost, userId, reload }: Params) {
   const run = useRunAction(reload);
 
@@ -23,7 +23,7 @@ export function usePartyMenu({ party, isHost, userId, reload }: Params) {
       {
         text: 'Sair',
         style: 'destructive',
-        onPress: () => run(() => leaveParty(p.id, userId).then(() => router.back())),
+        onPress: () => run(() => removeMember(p.id, userId).then(() => router.back())),
       },
       { text: 'Cancelar', style: 'cancel' },
     ]);
@@ -31,12 +31,11 @@ export function usePartyMenu({ party, isHost, userId, reload }: Params) {
 
   function openMenu() {
     if (!party) return;
-    showDialog(party.name, isHost ? `Código ${party.code}` : `Host: ${party.host?.name ?? '—'}`, [
-      isHost
-        ? { text: 'Encerrar festa', style: 'destructive', onPress: () => confirmEnd(party) }
-        : { text: 'Sair da festa', style: 'destructive', onPress: () => confirmLeave(party) },
-      { text: 'Fechar', style: 'cancel' },
-    ]);
+    const buttons: DialogButton[] = [];
+    if (isHost) buttons.push({ text: 'Encerrar festa', style: 'destructive', onPress: () => confirmEnd(party) });
+    buttons.push({ text: 'Sair da festa', style: 'destructive', onPress: () => confirmLeave(party) });
+    buttons.push({ text: 'Fechar', style: 'cancel' });
+    showDialog(party.name, `Código ${party.code} · criada por ${party.creator?.name ?? '—'}`, buttons);
   }
 
   return { openMenu };

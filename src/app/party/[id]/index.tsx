@@ -9,11 +9,13 @@ import {
   PartyEndedBanner,
   PartyHeaderActions,
   QueueList,
+  RemovedNotice,
   RequestSongButton,
 } from '@/components/party';
 import { Segmented } from '@/components/ui';
 import { useParty } from '@/hooks/useParty';
 import { usePartyMenu } from '@/hooks/usePartyMenu';
+import { usePromotionNotice } from '@/hooks/usePromotionNotice';
 import { useQueueActions } from '@/hooks/useQueueActions';
 import { useAuth } from '@/lib/auth';
 import type { QueueItem } from '@/lib/db';
@@ -27,11 +29,15 @@ export default function PartyScreen() {
   const { styles } = useTheme();
   const insets = useSafeAreaInsets();
   const [tab, setTab] = useState<Tab>('queue');
-  const { party, members, error, refreshing, refresh, reload, playing, queued, history } = useParty(id);
-  const isHost = party?.host_id === userId;
+  const { party, members, removed, isHost, error, refreshing, refresh, reload, playing, queued, history } = useParty(
+    id,
+    userId,
+  );
+  usePromotionNotice(isHost, !!party);
   const actions = useQueueActions({ isHost, userId, playing, queued, reload });
   const { openMenu } = usePartyMenu({ party, isHost, userId, reload });
 
+  if (removed) return <RemovedNotice />;
   if (!party) {
     return (
       <View style={[styles.screen, styles.content]}>
@@ -44,7 +50,7 @@ export default function PartyScreen() {
   const open = !party.ended_at;
   const requesterName = (item: QueueItem) =>
     item.requested_by === userId ? 'você' : (item.requester?.name ?? 'alguém');
-  const goTo = (pathname: '/party/[id]/invite' | '/party/[id]/search') =>
+  const goTo = (pathname: '/party/[id]/invite' | '/party/[id]/search' | '/party/[id]/members') =>
     router.push({ pathname, params: { id: party.id } });
 
   return (
@@ -54,7 +60,8 @@ export default function PartyScreen() {
           title: party.name,
           headerRight: () => (
             <PartyHeaderActions
-              members={members}
+              members={members.length}
+              onMembers={() => goTo('/party/[id]/members')}
               onInvite={open ? () => goTo('/party/[id]/invite') : undefined}
               onMenu={openMenu}
             />

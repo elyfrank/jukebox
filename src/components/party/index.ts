@@ -1,6 +1,9 @@
 export { HostControls } from './HostControls';
+export { MemberRow } from './MemberRow';
 export { NowPlaying } from './NowPlaying';
+export { PartyCard } from './PartyCard';
 export { PartyEndedBanner } from './PartyEndedBanner';
 export { PartyHeaderActions } from './PartyHeaderActions';
 export { QueueList } from './QueueList';
+export { RemovedNotice } from './RemovedNotice';
 export { RequestSongButton } from './RequestSongButton';

@@ -1,20 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { countMembers, getParty, listQueue, subscribeToParty, type Party, type QueueItem } from '@/lib/db';
+import { getParty, listMembers, listQueue, subscribeToParty, type Member, type Party, type QueueItem } from '@/lib/db';
 import { errorMessage } from '@/lib/errors';
 
-// Dados de uma festa (festa, fila e nº de pessoas), atualizados em tempo real.
-export function useParty(id: string) {
+// Dados de uma festa (festa, fila e pessoas) do ponto de vista do usuário, atualizados em tempo real.
+export function useParty(id: string, userId: string) {
   const [party, setParty] = useState<Party | null>(null);
   const [queue, setQueue] = useState<QueueItem[]>([]);
-  const [members, setMembers] = useState(0);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [removed, setRemoved] = useState(false);
   const [error, setError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
   const reload = useCallback(
     () =>
-      Promise.all([getParty(id), listQueue(id), countMembers(id)]).then(
+      Promise.all([getParty(id), listQueue(id), listMembers(id)]).then(
         ([p, q, m]) => {
+          // Sem acesso à festa ou fora da lista de pessoas: o usuário saiu ou foi removido.
+          setRemoved(!p || !m.some((x) => x.user_id === userId));
           setParty(p);
           setQueue(q);
           setMembers(m);
@@ -22,7 +25,7 @@ export function useParty(id: string) {
         },
         (e) => setError(errorMessage(e)),
       ),
-    [id],
+    [id, userId],
   );
 
   useEffect(() => {
@@ -39,10 +42,12 @@ export function useParty(id: string) {
   return {
     party,
     members,
+    removed,
     error,
     refreshing,
     refresh,
     reload,
+    isHost: members.some((m) => m.user_id === userId && m.role === 'host'),
     playing: queue.find((q) => q.status === 'playing'),
     queued: queue.filter((q) => q.status === 'queued'),
     history: queue.filter((q) => q.status === 'played' || q.status === 'skipped').reverse(),

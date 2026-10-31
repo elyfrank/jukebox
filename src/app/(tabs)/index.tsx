@@ -1,28 +1,29 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
 
+import { PartyCard } from '@/components/party';
 import { Button, Card } from '@/components/ui';
 import { useAuth } from '@/lib/auth';
-import { listMyParties, type Party } from '@/lib/db';
+import { listMyParties, type MyParty } from '@/lib/db';
 import { errorMessage } from '@/lib/errors';
 import { useTheme } from '@/lib/theme';
 
 export default function PartiesScreen() {
-  const { session } = useAuth();
+  const userId = useAuth().session!.user.id;
   const { colors, styles } = useTheme();
-  const [parties, setParties] = useState<Party[] | null>(null);
+  const [parties, setParties] = useState<MyParty[] | null>(null);
   const [error, setError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
   const load = useCallback(async () => {
     try {
-      setParties(await listMyParties());
+      setParties(await listMyParties(userId));
       setError('');
     } catch (e) {
       setError(errorMessage(e));
     }
-  }, []);
+  }, [userId]);
 
   // Recarrega ao voltar para esta aba (ex.: depois de sair ou encerrar uma festa).
   useFocusEffect(
@@ -57,26 +58,13 @@ export default function PartiesScreen() {
       {parties && parties.length > 0 && (
         <View style={{ gap: 8 }}>
           <Text style={styles.subtitle}>Suas festas</Text>
-          {parties.map((p) => {
-            const isHost = p.host_id === session!.user.id;
-            return (
-              <Pressable
-                key={p.id}
-                onPress={() => router.push({ pathname: '/party/[id]', params: { id: p.id } })}
-                style={({ pressed }) => [styles.card, pressed && { opacity: 0.7 }]}
-              >
-                <View style={[styles.row, { justifyContent: 'space-between' }]}>
-                  <Text style={[styles.subtitle, { flex: 1 }]} numberOfLines={1}>
-                    {p.name}
-                  </Text>
-                  {isHost && <Text style={{ color: colors.primary, fontWeight: '600' }}>Host</Text>}
-                </View>
-                <Text style={styles.muted}>
-                  {isHost ? `Código ${p.code}` : `Host: ${p.host?.name ?? '—'}`}
-                </Text>
-              </Pressable>
-            );
-          })}
+          {parties.map((p) => (
+            <PartyCard
+              key={p.id}
+              party={p}
+              onPress={() => router.push({ pathname: '/party/[id]', params: { id: p.id } })}
+            />
+          ))}
         </View>
       )}
     </ScrollView>
